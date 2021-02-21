@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"go-auth/auth"
 	"log"
 	"net/http"
 	"os"
@@ -33,11 +34,13 @@ func main() {
 	appAddr := ":" + os.Getenv("PORT")
 
 	// setup redis
-	// redisHost := os.Getenv("REDIS_HOST")
-	// redisPort := os.Getenv("REDIS_PORT")
-	// redisPassword := os.Getenv("REDIS_PASSWORD")
+	redisHost := os.Getenv("REDIS_HOST")
+	redisPort := os.Getenv("REDIS_PORT")
+	redisPassword := os.Getenv("REDIS_PASSWORD")
 
-	// redisClient := NewRedisDB(redisHost, redisPort, redisPassword)
+	redisClient := NewRedisDB(redisHost, redisPort, redisPassword)
+
+	var rd = auth.NewAuth(redisClient)
 
 	var router = gin.Default()
 

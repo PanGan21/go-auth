@@ -41,6 +41,7 @@ func main() {
 	redisClient := NewRedisDB(redisHost, redisPort, redisPassword)
 
 	var rd = auth.NewAuth(redisClient)
+	var tk = auth.NewToken()
 
 	var router = gin.Default()
 

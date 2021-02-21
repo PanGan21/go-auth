@@ -94,7 +94,7 @@ func (h *profileHandler) CreateTodo(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return
 	}
-	userID, err := h.rd.FetchAuth(metadata.TokenUuid)
+	userID, err := h.rd.FetchAuth(metadata.TokenUUID)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, "unauthorized")
 		return

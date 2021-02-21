@@ -116,3 +116,15 @@ func (t *tokenservice) ExtractTokenMetadata(r *http.Request) (*AccessDetails, er
 	}
 	return acc, nil
 }
+
+// TokenValid checks if the token is valid
+func TokenValid(r *http.Request) error {
+	token, err := verifyToken(r)
+	if err != nil {
+		return err
+	}
+	if _, ok := token.Claims.(jwt.Claims); !ok && !token.Valid {
+		return err
+	}
+	return nil
+}

@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"go-auth/auth"
+	"go-auth/handler"
+	"go-auth/middleware"
 	"log"
 	"net/http"
 	"os"
@@ -42,8 +44,14 @@ func main() {
 
 	var rd = auth.NewAuth(redisClient)
 	var tk = auth.NewToken()
+	var service = handlers.NewProfile(rd, tk)
 
 	var router = gin.Default()
+
+	router.POST("/login", service.Login)
+	router.POST("/todo", middleware.TokenAuthMiddleware(), service.CreateTodo)
+	router.POST("/logout", middleware.TokenAuthMiddleware(), service.Logout)
+	router.POST("/refresh", service.Refresh)
 
 	srv := &http.Server{
 		Addr: appAddr,

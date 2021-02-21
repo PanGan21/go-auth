@@ -30,7 +30,8 @@ type service struct {
 	client *redis.Client
 }
 
-var _AuthInterface = &service{}
+// Auth implements the AuthInterface
+// var _ AuthInterface = &service{}
 
 // NewAuth returns a new Authentication service with redis client injected
 func NewAuth(client *redis.Client) *service {
